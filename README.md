@@ -35,4 +35,4 @@ Esta etapa do projeto é responsável por transformar os registros individuais d
 
 Abaixo está o gráfico gerado a partir do cruzamento de dados do DATASUS, demonstrando a tendência dos casos ao longo do período analisado:
 
-![Gráfico de Evolução Temporal](images\evolucao_suicidios.png)s9
+<img src="dados_panda\images\evolucao_suicidios.png" alt="Texto Alternativo" width="500">
