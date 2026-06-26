@@ -34,4 +34,4 @@ This phase of the project is responsible for transforming individual DATASUS rec
 
 Below is the graph generated from the cross-tabulation of DATASUS data, showing the trend in cases over the analyzed period:
 
-![Imagem do grafico](dados_panda\images\my_grafic_datasus.png)
+![Imagem do grafico](images/my_grafic_datasus.png)
