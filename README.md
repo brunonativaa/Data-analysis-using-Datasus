@@ -1,38 +1,37 @@
-feat: adiciona script de analise de dados e plotagem de suicidios (2014-2018)
+feat: script for analyzing data and plotting suicide rates (2014-2018)
 
-# Análise de Dados - DATASUS Suicídios no Brasil
+# Data Analysis - DATASUS Suicides in Brazil
 
-Este módulo inicializa o carregamento e a visualização estruturada da base de dados.
+This module initiates the loading and structured visualization of the database.
 
-- **Gerenciamento de Caminhos:** Utiliza o módulo nativo `pathlib` para mapear os diretórios do projeto de forma dinâmica, evitando falhas de navegação entre sistemas operacionais distintos (Windows/Linux/macOS).
-- **Leitura do Dataset:** Realiza a abertura e decodificação do arquivo bruto em formato CSV (codificado em `ISO-8859-1`), carregando-o na memória como o DataFrame `df_preview` através do Pandas.
+- **Path Management:** Uses the native `pathlib` module to dynamically map project directories, preventing navigation errors across different operating systems (Windows/Linux/macOS).
+- **Reading the Dataset:** Opens and decodes the raw CSV file (encoded in `ISO-8859-1`), loading it into memory as the `df_preview` DataFrame using Pandas.
 
-# Etapa de Limpeza de Dados (Data Cleaning)
+# Data Cleaning Stage
 
-Nesta etapa do projeto, realizamos o tratamento de valores ausentes (nulos) para garantir a integridade das análises demográficas posteriores.
+In this stage of the project, we handled missing (null) values to ensure the integrity of subsequent demographic analyses.
 
-- **Remoção Estratégica de Registros Incompletos:** Utilizamos o método `.dropna(subset=[...])` do Pandas para eliminar linhas onde informações demográficas cruciais não foram preenchidas pelos estabelecimentos de saúde.
-- **Variáveis Tratadas:** A limpeza focou nas colunas de perfil do indivíduo e do óbito:
-  - `SEXO` (Gênero)
-  - `ESTCIV` (Estado Civil)
-  - `RACACOR` (Etnia/Raça)
-  - `CIRCOBITO` (Circunstância do Óbito)
-  - `DTNASC` (Data de Nascimento / Idade)
-  - `ESC` (Escolaridade)
-  - `LOCOCOR` (Local de Ocorrência)
-- **Validação do Processo:** O script encerra executando a combinação `.isnull().sum()`, garantindo e validando visualmente no console que nenhuma das colunas mapeadas possui valores nulos residuais no DataFrame final (`df_clear`).
+- **Strategic Removal of Incomplete Records:** We used Pandas’ `.dropna(subset=[...])` method to eliminate rows where crucial demographic information was not provided by healthcare facilities.
+- **Variables Processed:** The cleaning focused on the columns related to the individual’s profile and the death:
+  - `SEXO` (Gender)
+  - `ESTCIV` (Marital Status)
+  - `RACACOR` (Ethnicity/Race)
+  - `CIRCOBITO` (Circumstances of Death)
+  - `DTNASC` (Date of Birth / Age)
+  - `ESC` (Education Level)
+  - `LOCOCOR` (Place of Occurrence)
+- **Process Validation:** The script concludes by executing the `.isnull().sum()` combination, ensuring and visually validating in the console that none of the mapped columns contain residual null values in the final DataFrame (`df_clear`).
 
+# Temporal Analysis and Data Visualization
 
-# Análise Temporal e Visualização de Dados
+This phase of the project is responsible for transforming individual DATASUS records into a consolidated indicator of historical trends, generating the project’s first layer of visual intelligence.
 
-Esta etapa do projeto é responsável por transformar os registros individuais do DATASUS em um indicador consolidado de evolução histórica, gerando a primeira camada de inteligência visual do projeto.
+- **Regular Expression (Regex) Mapping:** Since the raw mortality data uses the international ICD-10 coding system, we applied the `.str.count()` method combined with a regex (`r'X6[0-9]|X7[0-9]|X8[0-4]'`) to the `CAUSABAS` column. This allowed us to accurately filter and count only the cases corresponding to intentional self-inflicted injuries.
+- **Grouping and Aggregation:** We used the `.groupby(‘year’)` function combined with the `.sum()` mathematical operation to consolidate the microdata (over 58,000 rows) into a macro statistical summary by year.
+- **Data Visualization with Matplotlib:** We developed a custom line chart to highlight the trend in the data over time. The chart features circular markers (`marker=‘o’`), a grid background (`plt.grid`) to make the axes easier to read, and explicit parameterization of the time labels (`plt.xticks`), preventing distortions in the timeline.
 
-- **Mapeamento por Expressão Regular (Regex):** Como os dados brutos de mortalidade utilizam a codificação internacional CID-10, aplicamos o método `.str.count()` associado a uma regex (`r'X6[0-9]|X7[0-9]|X8[0-4]'`) na coluna `CAUSABAS`. Isso nos permitiu filtrar e contar com precisão apenas as ocorrências correspondentes a lesões autoprovocadas voluntariamente.
-- **Agrupamento e Agregação:** Utilizamos a função `.groupby('ano')` combinada com a operação matemática `.sum()` para consolidar os microdados (mais de 58 mil linhas) em um resumo estatístico macro por ano.
-- **Data Visualization com Matplotlib:** Desenvolvemos um gráfico de linha customizado para evidenciar a tendência dos dados ao longo do tempo. O gráfico conta com marcadores circulares (`marker='o'`), malha de fundo (`plt.grid`) para facilitar a leitura dos eixos e parametrização explícita dos rótulos temporais (`plt.xticks`), evitando distorções na linha do tempo.
+## Visualization of Results
 
-## Visualização dos Resultados
+Below is the graph generated from the cross-tabulation of DATASUS data, showing the trend in cases over the analyzed period:
 
-Abaixo está o gráfico gerado a partir do cruzamento de dados do DATASUS, demonstrando a tendência dos casos ao longo do período analisado:
-
-<img src="dados_panda\images\evolucao_suicidios.png" alt="Texto Alternativo" width="500">
+![Imagem do grafico](dados_panda\images\my_grafic_datasus.png)
