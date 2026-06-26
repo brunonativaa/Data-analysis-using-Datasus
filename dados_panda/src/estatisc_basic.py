@@ -2,8 +2,9 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-caminho_csv = BASE_DIR / 'data' / 'datasus_suicidio_2014_2018.csv'
+diretorio_atual = Path(__file__).parent.parent
+caminho_csv = diretorio_atual / 'data' / 'datasus_suicidio_2014_2018.csv'
+caminho_grafico = diretorio_atual / 'images' / 'my_grafic_datasus.png'
 
 
 
@@ -39,5 +40,5 @@ plt.grid(True, linestyle='--', alpha=0.6)
 
 plt.xticks(casos_por_ano['ano'])
 
-plt.show()
+plt.savefig(caminho_grafico)
 
