@@ -1,8 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-caminho_csv = BASE_DIR / 'data' / 'datasus_suicidio_2014_2018.csv'
+diretorio_atual = Path(__file__).parent.parent
+caminho_csv = diretorio_atual / 'data' / 'datasus_suicidio_2014_2018.csv'
 
 df = pd.read_csv(caminho_csv, encoding='ISO-8859-1', delimiter=',')
 
